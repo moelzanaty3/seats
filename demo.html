@@ -10,14 +10,18 @@
     <script src="scripts/jquery-2.1.4.min.js"></script>
     <script src="scripts/flexiseats.js"></script>
     <script src="scripts/jquery.tooltipster.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css"
+    />
+    <script src="https://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
     <script type="text/javascript">
       $(document).ready(function() {
         var seats = $("#seats").flexiSeats({
-          rows: 20,
-          columns: 50,
-          multiple: true,
-          booked: ["1-2", "4-7"]
+          rows: 26,
+          columns: 100,
+          multiple: false
         });
 
         getBlocks();
@@ -29,8 +33,7 @@
             $("#seats").flexiSeats({
               rows: _rows,
               columns: _cols,
-              multiple: true,
-              booked: ["1-2", "4-7"]
+              multiple: false
             })
           );
         });
@@ -73,75 +76,119 @@
           offsetY: -10,
           theme: "tooltipster-shadow"
         });
+
+        $("#borderRadius, #color, #curved").slider({
+          range: "min",
+          min: 0,
+          max: 60,
+          value: 0,
+          slide: refreshSkew,
+          change: refreshSkew
+        });
+
+        function refreshSkew() {
+          var borderRadius = $("#borderRadius").slider("value"),
+            color = $("#color").slider("value"),
+            curved = $("#curved").slider("value");
+
+          $(".box").css({
+            "border-bottom-left-radius": curved * 10 + "%",
+            "border-bottom-right-radius": curved * 10 + "%",
+            // "border-radius": "" + borderRadius + "%",
+            "background-color":
+              "rgba(" + color + "," + color + 20 + "," + color + 2 + ")",
+            "will-change": "left"
+          });
+        }
       });
     </script>
   </head>
   <body>
-    <div>
-      Rows: <input id="txtRows" type="text" /> Columns:
-      <input id="txtCols" type="text" />
-      <input type="button" id="btnDraw" value="Draw" />
+    <div class="solution">
+      <div>
+        Rows: <input id="txtRows" type="text" /> Columns:
+        <input id="txtCols" type="text" />
+        <input type="button" id="btnDraw" value="Draw" />
+      </div>
+
+      <div class="legends">
+        <input id="legAvailable" type="checkbox" disabled />
+        <label for="legAvailable"> Available</label>
+        <input
+          id="legAvailable"
+          type="checkbox"
+          data-status="notavailable"
+          disabled
+        />
+        <label for="legAvailable"> Not Available</label>
+        <input
+          id="legBooked"
+          type="checkbox"
+          data-status="booked"
+          checked
+          disabled
+        />
+        <label for="legBooked"> Booked</label>
+        <input id="legBooked" type="checkbox" checked disabled />
+        <label for="legBooked"> Selected</label>
+      </div>
+
+      <div id="seats"></div>
+
+      <div>
+        <br />
+        <h4>Mode</h4>
+        <input
+          type="radio"
+          name="mode"
+          value="false"
+          class="flexiSeatsMode"
+        />Single
+        <input
+          type="radio"
+          name="mode"
+          value="true"
+          class="flexiSeatsMode"
+        />Multiple
+      </div>
+
+      <div class="methods">
+        <select id="lstBlocks"></select>
+        <button type="button" id="btnDefineGold">Define Selected</button>
+        <button type="button" id="btnDefineDelete">Delete Selected</button>
+      </div>
+
+      <h6>Add Block</h6>
+      <table>
+        <tr>
+          <td>Label</td>
+          <td><input type="text" id="txtBlockLabel" /></td>
+          <td>Price</td>
+          <td><input type="text" id="txtBlockPrice" /></td>
+          <td>Color</td>
+          <td><input type="text" id="txtBlockColor" /></td>
+        </tr>
+      </table>
+
+      <button type="button" id="btnAddBlock">Add</button>
     </div>
 
-    <div class="legends">
-      <input id="legAvailable" type="checkbox" disabled />
-      <label for="legAvailable"> Available</label>
-      <input
-        id="legAvailable"
-        type="checkbox"
-        data-status="notavailable"
-        disabled
-      />
-      <label for="legAvailable"> Not Available</label>
-      <input
-        id="legBooked"
-        type="checkbox"
-        data-status="booked"
-        checked
-        disabled
-      />
-      <label for="legBooked"> Booked</label>
-      <input id="legBooked" type="checkbox" checked disabled />
-      <label for="legBooked"> Selected</label>
+    <div class="skew">
+      <div class="skew-container"><div class="box"></div></div>
+      <div class="control">
+        <div class="slider">
+          Broder-Radius <br />
+          <div id="borderRadius"></div>
+        </div>
+        <div class="slider">
+          Color <br />
+          <div id="color"></div>
+        </div>
+        <div class="slider">
+          Curved <br />
+          <div id="curved"></div>
+        </div>
+      </div>
     </div>
-
-    <div id="seats"></div>
-
-    <div>
-      <br />
-      <h4>Mode</h4>
-      <input
-        type="radio"
-        name="mode"
-        value="false"
-        class="flexiSeatsMode"
-      />Single
-      <input
-        type="radio"
-        name="mode"
-        value="true"
-        class="flexiSeatsMode"
-      />Multiple
-    </div>
-
-    <div class="methods">
-      <select id="lstBlocks"></select>
-      <button type="button" id="btnDefineGold">Define Selected</button>
-      <button type="button" id="btnDefineDelete">Delete Selected</button>
-    </div>
-
-    <h6>Add Block</h6>
-    <table>
-      <tr>
-        <td>Label</td>
-        <td><input type="text" id="txtBlockLabel" /></td>
-        <td>Price</td>
-        <td><input type="text" id="txtBlockPrice" /></td>
-        <td>Color</td>
-        <td><input type="text" id="txtBlockColor" /></td>
-      </tr>
-    </table>
-
-    <button type="button" id="btnAddBlock">Add</button>
   </body>
 </html>

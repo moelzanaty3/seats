@@ -135,7 +135,9 @@ table {
 }
 
 /* Custom */
-
+/* .solution {
+  display: none;
+} */
 .legends {
   font-family: Arial;
   font-size: 12px;
@@ -206,4 +208,37 @@ input[type="checkbox"]:disabled[data-status="booked"] + label:before {
 input[type="checkbox"]:disabled[data-status="notavailable"] + label:before {
   content: "\f111";
   color: #fff;
+}
+
+.skew {
+  margin: 20px;
+  display: none;
+}
+
+.skew-container {
+  width: 500px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: purple;
+  position: relative;
+}
+
+.box {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: inline-block;
+  width: 200px;
+  height: 100px;
+}
+
+.control {
+  background-color: #f0f1f1;
+  margin: 10px 0 0;
+  padding: 5px 10px;
+  text-align: left;
+}
+
+.ui-slider {
+  margin: 5px 0;
 }
