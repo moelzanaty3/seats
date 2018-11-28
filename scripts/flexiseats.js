@@ -211,14 +211,14 @@
       // console.log("from delet", seats);
 
       // _selected.forEach((selectedSeat, index) => {
-      for (let i = 0; i < _seats.length; i++) {
-        for (let j = 0; j < _seats[i].length; j++) {
-          console.log(i + " " + j + " " + _seats[i][j]);
-        }
-      }
+      // for (let i = 0; i < _seats.length; i++) {
+      //   for (let j = 0; j < _seats[i].length; j++) {
+      //     console.log(i + " " + j + " " + _seats[i][j]);
+      //   }
+      // }
       // });
       // _seats.filter((seat, index) => {
-      //   if (seat["id"] === _selected[index]) {
+      //   if (seat["id"] === _selected[index][index]) {
       //     console.log(seat);
       //     seat.notavailable = true;
       //     seat.selected = false;
@@ -228,16 +228,28 @@
       //     console.log(seat);
       //   }
       // });
-      _seats.filter((seat, index) => {
-        // if (_selected[index][index] === seat["id"]) {
-        //   seat.notavailable = true;
-        //   seat.selected = false;
-        //   $("label[for=seat" + _selected[i] + "").css({
-        //     visibility: "hidden"
-        //   });
-        // }
+      // _seats.filter((seat, index) => {
+      //   if (_selected[index][index] === seat["id"]) {
+      //     seat.notavailable = true;
+      //     seat.selected = false;
+      //     console.log(_selected)
+      //     $("label[for=seat" + _selected[i] + "").css({
+      //       visibility: "hidden"
+      //     });
+      //   }
+      // });
+      _seats.filter(function(seat) {
+        for (let i = 0; i < _selected.length; i++) {
+          if (_selected[i] === seat["id"]) {
+            seat.notavailable = true;
+            seat.selected = false;
+            console.log(seat);
+            $("label[for=seat" + _selected[i] + "").css({
+              visibility: "hidden"
+            });
+          }
+        }
       });
-
       _selected = [];
     }
     //Deselect a single seat

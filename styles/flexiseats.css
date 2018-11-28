@@ -174,7 +174,9 @@ table {
   margin-bottom: 4px;
   display: none;
 }
-
+label.seat {
+  margin: 5px;
+}
 input[type="checkbox"] {
   display: none;
 }
@@ -212,7 +214,6 @@ input[type="checkbox"]:disabled[data-status="notavailable"] + label:before {
 
 .skew {
   margin: 20px;
-  display: none;
 }
 
 .skew-container {
@@ -241,4 +242,11 @@ input[type="checkbox"]:disabled[data-status="notavailable"] + label:before {
 
 .ui-slider {
   margin: 5px 0;
+}
+.seats-container {
+  /* width: 1060px; */
+  /* height: 424px; */
+  /* overflow: hidden; */
+  /* position: relative; */
+  margin: 0 auto;
 }

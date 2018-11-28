@@ -20,7 +20,7 @@
       $(document).ready(function() {
         var seats = $("#seats").flexiSeats({
           rows: 26,
-          columns: 100,
+          columns: 50,
           multiple: false
         });
 
@@ -77,27 +77,104 @@
           theme: "tooltipster-shadow"
         });
 
-        $("#borderRadius, #color, #curved").slider({
+        $("#curvedLeftBottom").slider({
           range: "min",
           min: 0,
           max: 60,
           value: 0,
-          slide: refreshSkew,
-          change: refreshSkew
+          slide: refreshSkewCurvedLeftBottom,
+          change: refreshSkewCurvedLeftBottom
         });
 
-        function refreshSkew() {
-          var borderRadius = $("#borderRadius").slider("value"),
-            color = $("#color").slider("value"),
-            curved = $("#curved").slider("value");
+        function refreshSkewCurvedLeftBottom() {
+          var curved = $("#curvedLeftBottom").slider("value");
 
-          $(".box").css({
+          $(".seats-container").css({
             "border-bottom-left-radius": curved * 10 + "%",
-            "border-bottom-right-radius": curved * 10 + "%",
-            // "border-radius": "" + borderRadius + "%",
-            "background-color":
-              "rgba(" + color + "," + color + 20 + "," + color + 2 + ")",
             "will-change": "left"
+          });
+        }
+        $("#curvedRightBottom").slider({
+          range: "min",
+          min: 0,
+          max: 60,
+          value: 0,
+          slide: refreshSkewCurvedRightBottom,
+          change: refreshSkewCurvedRightBottom
+        });
+
+        function refreshSkewCurvedRightBottom() {
+          var curved = $("#curvedRightBottom").slider("value");
+
+          $(".seats-container").css({
+            "border-bottom-right-radius": curved * 10 + "%",
+            "will-change": "right"
+          });
+        }
+        $("#curvedLeftTop").slider({
+          range: "min",
+          min: 0,
+          max: 60,
+          value: 0,
+          slide: refreshSkewCurvedLeftTop,
+          change: refreshSkewCurvedLeftTop
+        });
+
+        function refreshSkewCurvedLeftTop() {
+          var curved = $("#curvedLeftTop").slider("value");
+
+          $(".seats-container").css({
+            "border-top-left-radius": curved * 10 + "%",
+            "will-change": "left"
+          });
+        }
+        $("#curvedRightTop").slider({
+          range: "min",
+          min: 0,
+          max: 60,
+          value: 0,
+          slide: refreshSkewCurvedRightTop,
+          change: refreshSkewCurvedRightTop
+        });
+
+        function refreshSkewCurvedRightTop() {
+          var curved = $("#curvedRightTop").slider("value");
+
+          $(".seats-container").css({
+            "border-top-left-radius": curved * 10 + "%",
+            "will-change": "left"
+          });
+        }
+        $("#SkewX").slider({
+          range: "min",
+          min: 0,
+          max: 30,
+          value: 0,
+          slide: refreshSkewX,
+          change: refreshSkewX
+        });
+
+        function refreshSkewX() {
+          var skew = $("#SkewX").slider("value");
+
+          $(".seats-container").css({
+            "transform": "skewX("+ skew +"deg)",
+          });
+        }
+        $("#SkewY").slider({
+          range: "min",
+          min: 0,
+          max: 30,
+          value: 0,
+          slide: refreshSkewY,
+          change: refreshSkewY
+        });
+
+        function refreshSkewY() {
+          var skew = $("#SkewY").slider("value");
+
+          $(".seats-container").css({
+            "transform": "skewY("+ skew +"deg)",
           });
         }
       });
@@ -111,7 +188,7 @@
         <input type="button" id="btnDraw" value="Draw" />
       </div>
 
-      <div class="legends">
+      <div class="legends" style="text-align: center">
         <input id="legAvailable" type="checkbox" disabled />
         <label for="legAvailable"> Available</label>
         <input
@@ -133,8 +210,11 @@
         <label for="legBooked"> Selected</label>
       </div>
 
-      <div id="seats"></div>
+      <div class="seats-container">
+          <div id="seats"></div>
+      </div>
 
+      </div>
       <div>
         <br />
         <h4>Mode</h4>
@@ -174,19 +254,30 @@
     </div>
 
     <div class="skew">
-      <div class="skew-container"><div class="box"></div></div>
-      <div class="control">
-        <div class="slider">
-          Broder-Radius <br />
-          <div id="borderRadius"></div>
+      <div class="control" style="display:flex; justify-content: space-around">
+        <!-- <div class="slider">
+          Curved Left Bottom <br />
+          <div id="curvedLeftBottom"></div>
         </div>
         <div class="slider">
-          Color <br />
-          <div id="color"></div>
+          Curved Right Bottom <br />
+          <div id="curvedRightBottom"></div>
         </div>
         <div class="slider">
-          Curved <br />
-          <div id="curved"></div>
+          Curved Left Top<br />
+          <div id="curvedLeftTop"></div>
+        </div>
+        <div class="slider">
+          Curved Right Top<br />
+          <div id="curvedRightTop"></div>
+        </div> -->
+        <div class="slider">
+          Skew X<br />
+          <div id="SkewX"></div>
+        </div>
+        <div class="slider">
+          Skew Y<br />
+          <div id="SkewY"></div>
         </div>
       </div>
     </div>
